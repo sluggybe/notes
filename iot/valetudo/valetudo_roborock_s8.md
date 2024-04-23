@@ -23,27 +23,37 @@ cd ~/valetudo
 git clone https://github.com/linux-sunxi/sunxi-livesuite.git
 cd sunxi-livesuite
 
+
 # Install the requirements
+
 sudo apt install build-essential linux-headers-6.6.15-amd64
 
+
 # Compile the kernel module
+
 cd awusb
 sed -i 's/SUBDIRS=/M=/g' Makefile
 make
 sudo insmod awusb.ko
 
+
 # Download the libpng12 sources
+
 cd ~/valetudo
 git clone https://github.com/pnggroup/libpng.git
 cd libpng
 git switch libpng12
 
+
 # Compilke and install libpng12
+
 ./configure --prefix=/opt/libpng12
 make
 sudo make install
 
+
 # Modify the LiveSuite script to use the compiled libpng12
+
 cd ~/valetudo/sunxi-livesuite
 sed -i 's%^LD_LIBRARY_PATH=%LD_LIBRARY_PATH=/opt/libpng12/lib:%g' LiveSuit.sh
 ```
